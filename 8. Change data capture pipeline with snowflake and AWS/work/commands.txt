@@ -1,0 +1,46 @@
+### AWS EC2 instance and security group creation
+- t2.xlarge instance
+- 32GB of storage recommended
+- Allow ports 4000-38888
+- Connect to ec2 via ssh
+
+# connect to EC2
+ssh -i "key-pair-project.pem" ec2-user@ec2-54-209-245-79.compute-1.amazonaws.com
+
+# Copy files to EC2
+scp -r -i "key-pair-project.pem" docker_exp ec2-user@ec2-54-209-245-79.compute-1.amazonaws.com:/home/ec2-user/docker_exp
+
+# connect with port forwarding
+ssh -i "key-pair-project.pem" ec2-user@ec2-54-209-245-79.compute-1.amazonaws.com -L 2081:localhost:2041 -L 4888:localhost:4888 -L 2080:localhost:2080 -L 8050:localhost:8050 -L 4141:localhost:4141
+
+- Commands to install Docker
+sudo yum update -y
+sudo yum install docker
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+sudo gpasswd -a $USER docker
+newgrp docker
+sudo yum install python-pip
+sudo pip install docker-compose
+
+#Start Docker: 
+sudo systemctl start docker
+#Stop Docker:
+sudo systemctl stop docker
+
+#How to access tools in local machine
+    List Docker containers running: docker ps
+    CLI access in Docker container: docker exec -i -t nifi bash
+    Jupyter Lab at: http://ip_address:4888/lab? 
+    NiFi at: http://ip_address:2080/nifi/ 
+
+
+### Test data preparation
+
+docker exec -i -t nifi bash
+mkdir -p scd
+
+cp /opt/workspace/nifi/FakeDataset/customer_20250531110214.csv scd/ 
+
+/opt/workspace/nifi/FakeDataset/customer_(timestamp).csv 
+

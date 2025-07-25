@@ -1,0 +1,4 @@
+lambda: fn--
+role: role--
+s3: s3--
+eventbridge: --

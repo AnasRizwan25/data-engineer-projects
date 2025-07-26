@@ -1,0 +1,21 @@
+                                        ---- Initialize Kafka -----
+
+Start Zookeeper:
+---------------------------------------
+F:/kafka_2.13-3.9.1/bin/windows/zookeeper-server-start.bat F:/kafka_2.13-3.9.1/config/zookeeper.properties
+
+Start Kafka-server:
+-----------------------------------------
+F:/kafka_2.13-3.9.1/bin/windows/kafka-server-start.bat F:/kafka_2.13-3.9.1/config/server.properties
+
+Create topic:
+------------------------------------
+F:/kafka_2.13-3.9.1/bin/windows/kafka-topics.bat --create --topic {topic_name} --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1
+
+Start Producer:
+--------------------------------------
+F:/kafka_2.13-3.9.1/bin/windows/kafka-console-producer.bat --topic {topic_name} --bootstrap-server localhost:9092
+
+Start Consumer:
+-------------------------------------
+F:/kafka_2.13-3.9.1/bin/windows/kafka-console-consumer.bat --topic {topic_name} --from-beginning --bootstrap-server localhost:9092
